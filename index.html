@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Submit Analysis Request</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -35,26 +35,35 @@
 
   <h1>Submit Analysis Request</h1>
 
-  <form name="analysis-form" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/submit.html">
+  <form name="analysis-form"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        action="/thank-you">
+    
+    <!-- Required hidden input for Netlify form detection -->
+    <input type="hidden" name="form-name" value="analysis-form" />
+
+    <!-- Spam bot trap -->
     <p hidden>
       <label>Don’t fill this out: <input name="bot-field" /></label>
     </p>
 
-    <!-- Actual fields -->
+    <!-- Actual form fields -->
     <label for="name">Name:
-      <input type="text" id="name" name="name" required>
+      <input type="text" id="name" name="name" required />
     </label>
 
     <label for="email">Email:
-      <input type="email" id="email" name="email" required>
+      <input type="email" id="email" name="email" required />
     </label>
 
     <label for="top_n">Top X Scenarios:
-      <input type="number" id="top_n" name="top_n" min="1" required>
+      <input type="number" id="top_n" name="top_n" min="1" required />
     </label>
 
     <label for="filename">Output Filename (e.g. user123_results.xlsx):
-      <input type="text" id="filename" name="filename" required>
+      <input type="text" id="filename" name="filename" required />
     </label>
 
     <button type="submit">Submit</button>

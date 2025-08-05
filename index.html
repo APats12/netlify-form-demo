@@ -29,27 +29,19 @@
       padding: 10px 20px;
       font-size: 16px;
     }
+    .success {
+      text-align: center;
+      margin-top: 30px;
+      color: green;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
   <h1>Submit Analysis Request</h1>
 
-  <form name="analysis-form"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        action="/thank-you">
-    
-    <!-- Required hidden input for Netlify form detection -->
-    <input type="hidden" name="form-name" value="analysis-form" />
-
-    <!-- Spam bot trap -->
-    <p hidden>
-      <label>Don’t fill this out: <input name="bot-field" /></label>
-    </p>
-
-    <!-- Actual form fields -->
+  <form id="analysis-form">
     <label for="name">Name:
       <input type="text" id="name" name="name" required />
     </label>
@@ -68,6 +60,34 @@
 
     <button type="submit">Submit</button>
   </form>
+
+  <p class="success" id="success-message" style="display:none;">
+    ✅ Your request has been submitted. We’ll email you once your analysis is ready.
+  </p>
+
+  <script>
+    const form = document.getElementById('analysis-form');
+    const successMsg = document.getElementById('success-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = new URLSearchParams(formData);
+
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbwtlo71yjM_jN4O99O_4lePnZzYEHXqBlILCtnTQ-Y4oXXm4sTqtzD2B73gWn3tSmyv/exec", {
+          method: "POST",
+          body: data,
+        });
+
+        form.reset();
+        successMsg.style.display = "block";
+      } catch (error) {
+        alert("Something went wrong. Please try again.");
+      }
+    });
+  </script>
 
 </body>
 </html>
